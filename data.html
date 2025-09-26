@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Data Tangki</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="manifest" href="manifest.json">
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('service-worker.js')
+            .then(registration => {
+              console.log('Service Worker terdaftar: ', registration.scope);
+            })
+            .catch(err => {
+              console.log('Pendaftaran Service Worker gagal: ', err);
+            });
+        });
+      }
+    </script>
+    
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Input Data Tangki</h1>
+        <p class="subtitle">by: Tahast.project</p>
+        <a href="index.html" class="tab-button" style="display:block; margin: 10px auto;">Kembali ke Halaman Utama</a>
+        
+        <div class="tank-controls">
+            <h2>Kelola Tangki</h2>
+            <ul id="tank-list"></ul>
+            <div class="tank-buttons">
+                <button onclick="addTank()">Tambah Tangki Baru</button>
+                <button onclick="renameTank()">Ubah Nama Tangki</button>
+            
+  <button onclick="deleteTank()">Hapus Tangki Aktif</button>
+</div>
+        </div>
+
+        <div class="table-controls">
+            <h2>Kelola Tabel Aktif</h2>
+            <input type="number" id="col-count" placeholder="Jumlah Kolom" value="2" min="2">
+            <button onclick="createTable()">Perbarui Tabel (Otomatis)</button>
+            <button onclick="createTableManual()">Buat Tabel (Manual)</button>
+            <button onclick="addRow()">Tambah Baris</button>
+            <button class="delete-all-btn" onclick="deleteAllRows()">Hapus Semua Baris</button>
+        </div>
+
+        <div class="file-controls">
+    <h2>Ekspor Data (Tabel Aktif)</h2>
+    <div class="dropdown" id="dd-export-active">
+      <button class="dropdown-btn tab-button" onclick="toggleDropdown('dd-export-active')">Pilih Format Ekspor</button>
+      <div class="dropdown-menu">
+        <a href="#" onclick="exportDataAs('csv-comma')">CSV (Koma)</a>
+        <a href="#" onclick="exportDataAs('csv-semicolon')">CSV (Titik Koma)</a>
+        <a href="#" onclick="exportDataAs('json')">JSON</a>
+      </div>
+    </div>
+
+    <h2>Impor Data (Tabel Aktif)</h2>
+    <div class="dropdown" id="dd-import-active">
+      <button class="dropdown-btn tab-button" onclick="toggleDropdown('dd-import-active')">Pilih Sumber File</button>
+      <div class="dropdown-menu">
+        <label for="import-file-csv"  onclick="closeAllDropdowns()">CSV</label>
+        <label for="import-file-json" onclick="closeAllDropdowns()">JSON</label>
+        <label for="import-file-xlsx" onclick="closeAllDropdowns()">XLSX</label>
+      </div>
+    </div>
+    <input class="hidden-file" type="file" id="import-file-csv"  accept=".csv"  onchange="importDataDirect(this.files[0])">
+    <input class="hidden-file" type="file" id="import-file-json" accept=".json" onchange="importDataDirect(this.files[0])">
+    <input class="hidden-file" type="file" id="import-file-xlsx" accept=".xlsx" onchange="importDataDirect(this.files[0])">
+
+    <hr>
+
+    <h2>Ekspor Semua (Semua Tangki)</h2>
+    <div class="dropdown" id="dd-export-all">
+      <button class="dropdown-btn tab-button" onclick="toggleDropdown('dd-export-all')">Pilih Format Ekspor</button>
+      <div class="dropdown-menu">
+        <a href="#" onclick="exportAllAs('xlsx')">XLSX (multi-sheet)</a>
+        <a href="#" onclick="exportAllAs('json')">JSON (satu file)</a>
+      </div>
+    </div>
+
+    <h2>Impor Semua (Semua Tangki)</h2>
+    <div class="dropdown" id="dd-import-all">
+      <button class="dropdown-btn tab-button" onclick="toggleDropdown('dd-import-all')">Pilih File XLSX</button>
+      <div class="dropdown-menu">
+        <label for="import-all-xlsx" onclick="closeAllDropdowns()">XLSX multi-sheet</label>
+        <label for="import-all-json" onclick="closeAllDropdowns()">JSON semua tangki</label>
+      </div>
+    </div>
+    <input class="hidden-file" type="file" id="import-all-xlsx" accept=".xlsx" onchange="importAllFromXLSX()">
+    <input class="hidden-file" type="file" id="import-all-json" accept=".json" onchange="importAllFromJSON()">
+</div>
+
+<hr>
+
+        <div class="table-preview">
+            <h2>Tahastproject</h2>
+            <div class="table-container">
+                <table id="sounding-table-preview">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+<script src="helpers-addons.js"></script>
+</body>
+</html>

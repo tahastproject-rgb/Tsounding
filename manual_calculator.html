@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Manual</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="manifest" href="manifest.json">
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('service-worker.js')
+            .then(registration => {
+              console.log('Service Worker terdaftar: ', registration.scope);
+            })
+            .catch(err => {
+              console.log('Pendaftaran Service Worker gagal: ', err);
+            });
+        });
+      }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Kalkulator Interpolasi & Ekstrapolasi Manual</h1>
+        <a href="index.html" class="tab-button" style="display:block; margin: 10px auto;">Kembali ke Halaman Utama</a>
+        
+        <div class="manual-calc-input">
+            <div class="manual-inputs">
+                <h3>Data Point 1</h3>
+                <input type="number" id="manual-tinggi1" placeholder="Tinggi 1">
+                <input type="number" id="manual-volume1" placeholder="Volume 1">
+                <h3>Data Point 2</h3>
+                <input type="number" id="manual-tinggi2" placeholder="Tinggi 2">
+                <input type="number" id="manual-volume2" placeholder="Volume 2">
+            </div>
+        </div>
+        <div class="manual-calc-input">
+            <h3>Nilai yang Dicari</h3>
+            <input type="number" id="manual-tinggi-new" placeholder="Tinggi baru">
+            <button onclick="calculateManual()">Hitung Manual</button>
+            <p id="result-manual"></p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Tabel Sounding</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="manifest" href="manifest.json">
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('service-worker.js')
+            .then(registration => {
+              console.log('Service Worker terdaftar: ', registration.scope);
+            })
+            .catch(err => {
+              console.log('Pendaftaran Service Worker gagal: ', err);
+            });
+        });
+      }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <h1> T-Sounding</h1>
+        <p class="subtitle">Aplikasi untuk mengelola data tangki </p>
+
+        <div class="tank-controls">
+            <h2>Daftar Tangki</h2>
+            <ul id="tank-list"></ul>
+            <a href="data.html" class="tab-button">Kelola Data & Tangki</a>
+            <a href="manual_calculator.html" class="tab-button">Kalkulator Manual</a>
+        </div>
+
+        <div class="content-view">
+            <h2>Tabel Data Aktif</h2>
+            <div class="table-container">
+                <table id="sounding-table">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="calculator">
+                <h3>Kalkulator Otomatis</h3>
+                <input type="number" id="calc-sounding" placeholder="Masukkan nilai sounding">
+                <button onclick="calculateAutomatic()">Hitung</button>
+                <p id="result-auto"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
